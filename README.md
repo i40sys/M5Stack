@@ -1,5 +1,5 @@
 # tags:
-- tag:mqtt - public sensor readings to test.mosquitto.org
+- tag:mqtt - publish sensor readings to test.mosquitto.org
 - tag:wifi - wifi is working, NTP sync and SHT30 (temp/hum) reading working
 
 
