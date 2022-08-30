@@ -1,0 +1,1 @@
+tag:wifi - wifi is working, NTP sync and SHT30 (temp/hum) reading working
