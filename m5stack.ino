@@ -1,10 +1,12 @@
 #include <M5Stack.h>
 #include <WiFi.h>
-#include <time.h>
+#include <WiFiClientSecure.h>
+#include <ESPDateTime.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include <SHT3X.h>
 #include "config.h"
+#include "secrets.h"
 
 time_t now;
 time_t nowish = 1510592825;
@@ -17,7 +19,7 @@ unsigned long lastMillis = 0;
 unsigned long previousMillis = 0;
 const long interval = 5000;
 
-WiFiClient net;
+WiFiClientSecure net = WiFiClientSecure();
 PubSubClient client(net);
 
 void connectWiFi(void) {
@@ -50,23 +52,22 @@ void connectWiFi(void) {
 }
 
 void NTPConnect(void) {
-  Serial.print("Setting time using SNTP");
-  configTime(TIME_ZONE * 3600, 0 * 3600, "pool.ntp.org", "time.nist.gov");
-  now = time(nullptr);
-  while (now < nowish)
-  {
-    delay(500);
-    Serial.print(".");
-    now = time(nullptr);
+  DateTime.setServer("time.pool.aliyun.com");
+  DateTime.setTimeZone(TIME_ZONE);
+  DateTime.begin();
+  if (!DateTime.isTimeValid()) {
+    Serial.println("NTP server: fail.");
+  } else {
+    Serial.printf("Date Now is %s\n", DateTime.toISOString().c_str());
+    Serial.printf("Timestamp is %ld\n", DateTime.now());
   }
-  Serial.println("done!");
-  struct tm timeinfo;
-  gmtime_r(&now, &timeinfo);
-  Serial.print("Current time: ");
-  Serial.print(asctime(&timeinfo));
 }
 
 void connectMQTT(void) {
+  net.setCACert(cacert);
+  net.setCertificate(client_cert);
+  net.setPrivateKey(privkey);
+
   client.setServer(MQTT_HOST, MQTT_PORT);
   Serial.println("Connecting MQTT Broker...");
   M5.Lcd.println("Connecting MQTT Broker...");
@@ -88,6 +89,7 @@ void connectMQTT(void) {
 
 void publishMessage(void) {
   StaticJsonDocument<200> doc;
+  doc["ts"] = DateTime.toISOString();
   doc["time"] = time(nullptr);
   doc["humidity"] = hum;
   doc["temperature"] = tmp;
@@ -103,10 +105,12 @@ void readSensor(void) {
     hum = sht30.humidity;
   }
 
-  Serial.printf("Temperatura: %2.2f*C Humedad: %0.2f%%\r\n", tmp, hum);
+  Serial.print(DateTime.toISOString());
+  Serial.printf(" Temperatura: %2.2f*C Humedad: %0.2f%%\r\n", tmp, hum);
   M5.Lcd.clear();
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.setTextColor(WHITE, BLACK);
+  M5.Lcd.println(DateTime.toISOString());
   M5.Lcd.printf("Temp: %2.1f \r\nHumi: %2.0f%% \r\n", tmp, hum);
 }
 
@@ -126,17 +130,15 @@ void setup() {
 }
 
 void loop() {
-  readSensor();
-
   if (!client.connected()) {
     connectMQTT();
   } else {
     client.loop();
-    if (millis() - lastMillis > 5000) {
+    if (millis() - lastMillis > LOOP_TIME) {
       lastMillis = millis();
+      readSensor();
       publishMessage();
     }
   }
-
   delay(1000);
 }
