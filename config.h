@@ -11,9 +11,9 @@ void readSensor(void);
 #define SECRET_SSID "AP"
 #define SECRET_PSW "lavit2ap_"
 
-int8_t TIME_ZONE = +2;
+#define TIME_ZONE "CET-1CEST"
 
-#define THINGNAME "md5stack_demo_board"
+#define THINGNAME "m55stack_demo_board"
 #define MQTT_VERSION MQTT_VERSION_3_1_1
 const char MQTT_HOST[] = "test.mosquitto.org";
 const int MQTT_PORT = 1883;
