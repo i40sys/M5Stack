@@ -16,4 +16,3 @@ void readSensor(void);
 const char MQTT_HOST[] = "a1b6ebmeqxctip-ats.iot.eu-central-1.amazonaws.com";
 const int MQTT_PORT = 8883;
 #define TOPIC_PUB "md5stack/temp"
-
