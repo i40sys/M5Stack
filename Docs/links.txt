@@ -1,0 +1,2 @@
+https://docs.m5stack.com/en/app/demo-board_sht30
+https://github.com/m5stack/DEMO-BOARD
