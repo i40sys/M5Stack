@@ -134,7 +134,7 @@ void loop() {
     connectMQTT();
   } else {
     client.loop();
-    if (millis() - lastMillis > LOOP_TIME) {
+    if (millis() - lastMillis > interval) {
       lastMillis = millis();
       readSensor();
       publishMessage();
