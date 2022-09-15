@@ -9,9 +9,11 @@ void setup(){
                     /* Power chip connected to gpio21, gpio22, I2C device
                       Set battery charging voltage and current
                       If used battery, please call this function in your project */
+  /*
   M5.lcd.setTextSize(26);
   M5.Lcd.println("Hello");
   M5.Lcd.println("World"); // Print text on the screen (string) Print text on the screen (string)
+  */
 }
 
 /* After the program in setup() runs, it runs the program in loop()
