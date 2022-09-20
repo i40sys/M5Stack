@@ -8,8 +8,9 @@ float hum = 0.0;
 void setup() {
   M5.begin(115200);
   M5.Power.begin(); 
-  M5.lcd.setTextSize(2);
+  M5.lcd.setTextSize(4);
   M5.Lcd.println("Booting...");
+  delay(10000);
 }
 
 void loop() {
@@ -18,7 +19,7 @@ void loop() {
     hum = sht30.humidity;
   }
 
-  Serial.printf("Temperatura: %2.2f*C Humedad: %0.2f%%\r\n", tmp, hum);
+  Serial.printf("Temperatura: %2.2fºC Humedad: %0.2f%%\r\n", tmp, hum);
   M5.Lcd.clear();
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.setTextColor(WHITE, BLACK);

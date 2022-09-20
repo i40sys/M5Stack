@@ -6,9 +6,6 @@
 #include <SHT3X.h>
 #include "config.h"
 
-time_t now;
-time_t nowish = 1510592825;
-
 SHT3X sht30;
 float tmp = 0.0;
 float hum = 0.0;
@@ -50,7 +47,7 @@ void connectWiFi(void) {
 }
 
 void NTPConnect(void) {
-  DateTime.setServer("time.pool.aliyun.com");
+  DateTime.setServer(NTP_SERVER);
   DateTime.setTimeZone(TIME_ZONE);
   DateTime.begin();
   if (!DateTime.isTimeValid()) {
@@ -84,7 +81,7 @@ void connectMQTT(void) {
 void publishMessage(void) {
   StaticJsonDocument<200> doc;
   doc["ts"] = DateTime.toISOString();
-  doc["time"] = time(nullptr);
+  doc["epoch"] = time(nullptr);
   doc["humidity"] = hum;
   doc["temperature"] = tmp;
   char jsonBuffer[512];
@@ -115,11 +112,8 @@ void setup() {
   M5.Lcd.println("Booting...");
 
   connectWiFi();
-
   NTPConnect();
-
   connectMQTT();
-
   delay(5000);
 }
 
