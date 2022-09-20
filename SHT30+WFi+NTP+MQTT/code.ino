@@ -85,7 +85,7 @@ void publishMessage(void) {
   doc["humidity"] = hum;
   doc["temperature"] = tmp;
   char jsonBuffer[512];
-  serializeJson(doc, jsonBuffer); // print to client
+  serializeJson(doc, jsonBuffer);
  
   client.publish(TOPIC_PUB, jsonBuffer);
 }

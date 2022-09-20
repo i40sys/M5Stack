@@ -1,7 +1,3 @@
-#include <pgmspace.h>
-
-#define SECRET
-
 const char SECRET_SSID[] = "AP";
 const char SECRET_PSW[] = "lavit2ap_";
 
@@ -27,10 +23,7 @@ ZgrZliZ4YMkyYR6sO6D3OQZAQxNnxP8mqvyYSti+LY1MXf9y5sEvWIISC1epXYXM
 vRlRHXX8lXXrILFCdfcra8HCHimH85jtwTlorS8rHkaN99plDxNejTEIRyVsiDt2
 9W+/imKfy1/tlpgZhxGQIIc7M1hN+ujzEmZJQvArO5yoaLUq4HMpj9w81KqkkA==
 -----END CERTIFICATE-----
-
-
 )KEY";
- 
  
 // Copy contents from  XXXXXXXX-private.pem.key here ▼
 static const char privkey[] PROGMEM = R"KEY(
@@ -61,11 +54,7 @@ j4f+MwKBgBROrkvUvDtG5WRWZwkeI7WTwb2ZKShv6cxfhrSHx7p49I6fFqtmaFF4
 2AiTBVvl2r3/YzAQFw5NTHXKYBo0katlWrlIezMnJrpyh/uhYB7irLyyGN4SXrWJ
 +yEzXDTeHfou+bhxjSEcjqc6rO/lQ8U+KqySjG/r1uoWPXjgHXTv
 -----END RSA PRIVATE KEY-----
-
-
-
 )KEY";
-
 
 // Copy contents from AmazonRootCA1.pem
 static const char cacert[] PROGMEM = R"EOF(

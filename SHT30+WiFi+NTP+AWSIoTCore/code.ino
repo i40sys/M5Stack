@@ -8,9 +8,6 @@
 #include "config.h"
 #include "secrets.h"
 
-time_t now;
-time_t nowish = 1510592825;
-
 SHT3X sht30;
 float tmp = 0.0;
 float hum = 0.0;
@@ -121,11 +118,8 @@ void setup() {
   M5.Lcd.println("Booting...");
 
   connectWiFi();
-
   NTPConnect();
-
   connectMQTT();
-
   delay(5000);
 }
 

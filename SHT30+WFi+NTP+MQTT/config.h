@@ -6,7 +6,7 @@
 
 #define THINGNAME "m5stack_demo_board"
 #define MQTT_VERSION MQTT_VERSION_3_1_1
-const char MQTT_HOST[] = "broker.hivemq.com";
+const char MQTT_HOST[] = "10.2.0.54";
 const int MQTT_PORT = 1883;
 const char MQTT_USER[] = "i40sys";
 const char MQTT_PASSWORD[] = "^4rZ11gOJ8pQDx@gY%xV";
