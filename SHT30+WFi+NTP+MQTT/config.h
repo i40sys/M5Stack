@@ -8,6 +8,8 @@
 #define MQTT_VERSION MQTT_VERSION_3_1_1
 const char MQTT_HOST[] = "broker.hivemq.com";
 const int MQTT_PORT = 1883;
+const char MQTT_USER[] = "i40sys";
+const char MQTT_PASSWORD[] = "^4rZ11gOJ8pQDx@gY%xV";
 #define TOPIC_PUB "m5stack/temp"
 
 void connectWiFi(void);
