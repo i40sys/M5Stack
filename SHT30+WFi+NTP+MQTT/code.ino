@@ -63,7 +63,7 @@ void connectMQTT(void) {
   Serial.println("Connecting MQTT Broker...");
   M5.Lcd.println("Connecting MQTT Broker...");
 
-  while (!client.connect(THINGNAME))
+  while (!client.connect(THINGNAME, MQTT_USER, MQTT_PASSWORD))
   {
     Serial.println(client.state());
     M5.Lcd.print(".");
